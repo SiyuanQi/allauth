@@ -36,6 +36,8 @@ from .app_settings import EmailVerificationMethod
 from . import app_settings
 from .adapter import get_adapter
 
+#eigenTunes
+from profile.models import Profile
 
 def get_next_redirect_url(request, redirect_field_name="next"):
     """
@@ -170,6 +172,10 @@ def perform_login(request, user, email_verification,
 
 def complete_signup(request, user, email_verification, success_url,
                     signal_kwargs=None):
+    # eigenTunes
+    # Create the user profile
+    profile = Profile.objects.create(user=user) #, nickname=cd['nickname'])
+
     if signal_kwargs is None:
         signal_kwargs = {}
     signals.user_signed_up.send(sender=user.__class__,
