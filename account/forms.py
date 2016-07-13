@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import absolute_import
 
 import warnings
@@ -65,25 +66,48 @@ class SetPasswordField(PasswordField):
 
 
 class LoginForm(forms.Form):
+    # eigenTunes
+    error_messages = {
+        'account_inactive':
+        "该账号已被注销",
 
-    password = PasswordField(label=_("Password"))
-    remember = forms.BooleanField(label=_("Remember Me"),
+        'email_password_mismatch':
+        "密码错误或邮箱地址不正确",
+
+        'username_password_mismatch':
+        "密码错误或用户名不正确",
+
+        'username_email_password_mismatch':
+        "密码错误或用户名/邮箱地址不正确",
+
+        'username_email_required':
+        "请填写用户名/邮箱地址",
+
+        'password_required':
+        '请填写密码'
+    }
+
+    # eigenTunes
+    password = forms.CharField(label='密码', widget=forms.PasswordInput,
+     error_messages = {'required': error_messages['password_required']})
+    remember = forms.BooleanField(label="记住我的登录",
                                   required=False)
 
     user = None
-    error_messages = {
-        'account_inactive':
-        _("This account is currently inactive."),
+    # error_messages = {
+    #     'account_inactive':
+    #     _("This account is currently inactive."),
 
-        'email_password_mismatch':
-        _("The e-mail address and/or password you specified are not correct."),
+    #     'email_password_mismatch':
+    #     _("The e-mail address and/or password you specified are not correct."),
 
-        'username_password_mismatch':
-        _("The username and/or password you specified are not correct."),
+    #     'username_password_mismatch':
+    #     _("The username and/or password you specified are not correct."),
 
-        'username_email_password_mismatch':
-        _("The login and/or password you specified are not correct.")
-    }
+    #     'username_email_password_mismatch':
+    #     _("The login and/or password you specified are not correct.")
+    # }
+
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
@@ -107,12 +131,13 @@ class LoginForm(forms.Form):
         else:
             assert app_settings.AUTHENTICATION_METHOD \
                 == AuthenticationMethod.USERNAME_EMAIL
+            # eigenTunes
             login_widget = forms.TextInput(attrs={'placeholder':
-                                                  _('Username or e-mail'),
+                                                  '用户名/邮箱地址',
                                                   'autofocus': 'autofocus'})
-            login_field = forms.CharField(label=pgettext("field label",
-                                                         "Login"),
-                                          widget=login_widget)
+            login_field = forms.CharField(label="登录",
+                                          widget=login_widget, 
+                                          error_messages={'required':self.error_messages['username_email_required']})
         self.fields["login"] = login_field
         set_form_field_order(self,  ["login", "password", "remember"])
         if app_settings.SESSION_REMEMBER is not None:
@@ -225,15 +250,16 @@ def _base_signup_form_class():
 
 
 class BaseSignupForm(_base_signup_form_class()):
-    username = forms.CharField(label=_("Username"),
+    # eigenTunes
+    username = forms.CharField(label='用户名',
                                min_length=app_settings.USERNAME_MIN_LENGTH,
                                widget=forms.TextInput(
                                    attrs={'placeholder':
-                                          _('Username'),
+                                          '用户名',
                                           'autofocus': 'autofocus'}))
     email = forms.EmailField(widget=forms.TextInput(
         attrs={'type': 'email',
-               'placeholder': _('E-mail address')}))
+               'placeholder': '邮箱地址'}))
 
     def __init__(self, *args, **kwargs):
         email_required = kwargs.pop('email_required',
@@ -276,7 +302,8 @@ class BaseSignupForm(_base_signup_form_class()):
             self.fields[self.email_field].label = ugettext("E-mail")
             self.fields[self.email_field].required = True
         else:
-            self.fields[self.email_field].label = ugettext("E-mail (optional)")
+            # eigenTunes
+            self.fields[self.email_field].label = '邮箱地址（可选）'
             self.fields[self.email_field].required = False
             self.fields[self.email_field].widget.is_required = False
             if self.username_required:
@@ -334,9 +361,12 @@ class BaseSignupForm(_base_signup_form_class()):
 
 
 class SignupForm(BaseSignupForm):
-
-    password1 = PasswordField(label=_("Password"))
-    password2 = PasswordField(label=_("Password (again)"))
+    # password1 = PasswordField(label=_("Password"))
+    # password2 = PasswordField(label=_("Password (again)"))
+    
+    # eigenTunes
+    password1 = forms.CharField(label='密码', widget=forms.PasswordInput, error_messages = {'required': '请填写密码'})
+    password2 = forms.CharField(label='重复密码', widget=forms.PasswordInput, error_messages = {'required': '请填写重复密码'})
     confirmation_key = forms.CharField(max_length=40,
                                        required=False,
                                        widget=forms.HiddenInput())
