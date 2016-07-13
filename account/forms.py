@@ -399,8 +399,8 @@ class SignupForm(BaseSignupForm):
                 and "password2" in self.cleaned_data:
             if self.cleaned_data["password1"] \
                     != self.cleaned_data["password2"]:
-                raise forms.ValidationError(_("You must type the same password"
-                                              " each time."))
+                #eigenTunes
+                raise forms.ValidationError('密码不匹配')
 
         return self.cleaned_data
 
