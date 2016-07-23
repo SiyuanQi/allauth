@@ -279,6 +279,18 @@ class DefaultAccountAdapter(object):
             raise forms.ValidationError(error_message)
         return username
 
+    # eigenTunes
+    def clean_nickname(self, nickname):
+        """
+        Validates a nickname.
+        Args:
+            nickname: The nickname of a user. It is allow to duplicate with other users' nickname.
+
+        Returns:
+            Cleaned nickname.
+        """
+        return nickname
+
     def clean_email(self, email):
         """
         Validates an email value. You can hook into this if you want to

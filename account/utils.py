@@ -170,11 +170,15 @@ def perform_login(request, user, email_verification,
     return response
 
 
+# eigenTunes
 def complete_signup(request, user, email_verification, success_url,
-                    signal_kwargs=None):
+                    signal_kwargs=None, nickname=None):
     # eigenTunes
     # Create the user profile
-    profile = Profile.objects.create(user=user) #, nickname=cd['nickname'])
+    if nickname:
+        profile = Profile.objects.create(user=user, nickname=nickname)
+    else:
+        profile = Profile.objects.create(user=user)
 
     if signal_kwargs is None:
         signal_kwargs = {}

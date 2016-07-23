@@ -254,9 +254,12 @@ class BaseSignupForm(_base_signup_form_class()):
     username = forms.CharField(label='用户名',
                                min_length=app_settings.USERNAME_MIN_LENGTH,
                                widget=forms.TextInput(
-                                   attrs={'placeholder':
-                                          '用户名',
+                                   attrs={'placeholder': '用户名',
                                           'autofocus': 'autofocus'}))
+    nickname = forms.CharField(label='昵称（可修改）',
+                               error_messages={'required': '请填写昵称'},
+                               widget=forms.TextInput(
+                                   attrs={'placeholder': '昵称'}))
     email = forms.EmailField(widget=forms.TextInput(
         attrs={'type': 'email',
                'placeholder': '邮箱地址'}))
@@ -310,7 +313,8 @@ class BaseSignupForm(_base_signup_form_class()):
                 if app_settings.SIGNUP_EMAIL_ENTER_TWICE:
                     field_order = ['username', 'email1', 'email2']
                 else:
-                    field_order = ['username', 'email']
+                    # eigenTunes
+                    field_order = ['username', 'nickname', 'email']
 
         # Merge our email and username fields in if they are not
         # currently in the order.  This is to allow others to
@@ -327,6 +331,12 @@ class BaseSignupForm(_base_signup_form_class()):
     def clean_username(self):
         value = self.cleaned_data["username"]
         value = get_adapter().clean_username(value)
+        return value
+
+    # eigenTunes
+    def clean_nickname(self):
+        value = self.cleaned_data["nickname"]
+        value = get_adapter().clean_nickname(value)
         return value
 
     def clean_email(self):
