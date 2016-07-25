@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
@@ -19,7 +20,7 @@ class WeiboAccount(ProviderAccount):
 
 class WeiboProvider(OAuth2Provider):
     id = 'weibo'
-    name = 'Weibo'
+    name = '微博'
     account_class = WeiboAccount
 
     def extract_uid(self, data):

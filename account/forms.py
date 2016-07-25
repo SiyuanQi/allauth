@@ -302,7 +302,8 @@ class BaseSignupForm(_base_signup_form_class()):
             self.email_field = 'email1'
         merged_field_order = list(self.fields.keys())
         if email_required:
-            self.fields[self.email_field].label = ugettext("E-mail")
+            # eigenTunes
+            self.fields[self.email_field].label = '邮箱地址'
             self.fields[self.email_field].required = True
         else:
             # eigenTunes
