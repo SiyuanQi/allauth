@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
@@ -16,7 +17,7 @@ class WeixinAccount(ProviderAccount):
 
 class WeixinProvider(OAuth2Provider):
     id = 'weixin'
-    name = 'Weixin'
+    name = '微信'
     account_class = WeixinAccount
 
     def extract_uid(self, data):
