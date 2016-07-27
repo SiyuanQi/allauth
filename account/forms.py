@@ -252,6 +252,7 @@ def _base_signup_form_class():
 class BaseSignupForm(_base_signup_form_class()):
     # eigenTunes
     username = forms.CharField(label='用户名',
+                               error_messages={'required': '请填写用户名'},
                                min_length=app_settings.USERNAME_MIN_LENGTH,
                                widget=forms.TextInput(
                                    attrs={'placeholder': '用户名',
@@ -260,9 +261,9 @@ class BaseSignupForm(_base_signup_form_class()):
                                error_messages={'required': '请填写昵称'},
                                widget=forms.TextInput(
                                    attrs={'placeholder': '昵称'}))
-    email = forms.EmailField(widget=forms.TextInput(
-        attrs={'type': 'email',
-               'placeholder': '邮箱地址'}))
+    email = forms.EmailField(error_messages={'required': '请填写邮箱地址'},
+                             widget=forms.TextInput(attrs={'type': 'email',
+                                                           'placeholder': '邮箱地址'}))
 
     def __init__(self, *args, **kwargs):
         email_required = kwargs.pop('email_required',
