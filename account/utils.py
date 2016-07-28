@@ -37,6 +37,8 @@ from . import app_settings
 from .adapter import get_adapter
 
 #eigenTunes
+import os
+from django.conf import settings
 from profile.models import Profile
 
 def get_next_redirect_url(request, redirect_field_name="next"):
@@ -179,6 +181,8 @@ def complete_signup(request, user, email_verification, success_url,
         profile = Profile.objects.create(user=user, nickname=nickname)
     else:
         profile = Profile.objects.create(user=user)
+    if not os.path.exists(os.path.join(settings.BASE_DIR, 'users', user.username)):
+        os.makedirs(os.path.join(settings.BASE_DIR, 'users', user.username))
 
     if signal_kwargs is None:
         signal_kwargs = {}
