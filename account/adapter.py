@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 import json
@@ -41,19 +42,35 @@ class DefaultAccountAdapter(object):
     # Don't bother turning this into a setting, as changing this also
     # requires changing the accompanying form error message. So if you
     # need to change any of this, simply override clean_username().
-    username_regex = re.compile(r'^[\w.@+-]+$')
+    # eigenTunes
+    username_regex = re.compile(r'^[\w-]+$')
     error_messages = {
         'invalid_username':
-        _('Usernames can only contain letters, digits and @/./+/-/_.'),
+        _('用户名只能包括字母，数字和短横杠/下划线。'),
         'username_blacklisted':
-        _('Username can not be used. Please use other username.'),
+        _('该用户名无法使用，请用一个其他的用户名。'),
         'username_taken':
-        AbstractUser._meta.get_field('username').error_messages['unique'],
+        _('该用户名已经被注册，请用一个其他的用户名。'),
+        #AbstractUser._meta.get_field('username').error_messages['unique'],
         'too_many_login_attempts':
-        _('Too many failed login attempts. Try again later.'),
+        _('您已经尝试登陆太多次，请稍后再尝试。'),
         'email_taken':
-        AbstractUser._meta.get_field('email').error_messages['unique'],
+        _('该邮箱地址已经被注册，请用一个其他的邮箱地址。'),
+        #AbstractUser._meta.get_field('email').error_messages['unique'],
     }
+    # username_regex = re.compile(r'^[\w.@+-]+$')
+    # error_messages = {
+    #     'invalid_username':
+    #     _('Usernames can only contain letters, digits and @/./+/-/_.'),
+    #     'username_blacklisted':
+    #     _('Username can not be used. Please use other username.'),
+    #     'username_taken':
+    #     AbstractUser._meta.get_field('username').error_messages['unique'],
+    #     'too_many_login_attempts':
+    #     _('Too many failed login attempts. Try again later.'),
+    #     'email_taken':
+    #     AbstractUser._meta.get_field('email').error_messages['unique'],
+    # }
 
     def __init__(self, request=None):
         self.request = request
