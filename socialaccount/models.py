@@ -179,7 +179,8 @@ class SocialLogin(object):
     e-mail addresses retrieved from the provider.
     """
 
-    def __init__(self, user=None, account=None, token=None,
+    # eigenTunes: nickname added
+    def __init__(self, user=None, account=None, nickname = None, token=None,
                  email_addresses=[]):
         if token:
             assert token.account is None or token.account == account
@@ -187,6 +188,7 @@ class SocialLogin(object):
         self.user = user
         self.account = account
         self.email_addresses = email_addresses
+        self.nickname = nickname # eigenTunes
         self.state = {}
 
     def connect(self, request, user):
@@ -197,6 +199,7 @@ class SocialLogin(object):
         ret = dict(account=serialize_instance(self.account),
                    user=serialize_instance(self.user),
                    state=self.state,
+                   nickname=self.nickname,    # eigenTunes
                    email_addresses=[serialize_instance(ea)
                                     for ea in self.email_addresses])
         if self.token:
@@ -221,6 +224,7 @@ class SocialLogin(object):
         ret.user = user
         ret.email_addresses = email_addresses
         ret.state = data['state']
+        ret.nickname = data.get('nickname')    # eigenTunes
         return ret
 
     def save(self, request, connect=False):

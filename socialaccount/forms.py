@@ -22,6 +22,7 @@ class SignupForm(BaseSignupForm):
         # a few fixed properties.
         initial = {'email': user_email(user) or '',
                    'username': user_username(user) or '',
+                   'nickname': self.sociallogin.nickname or '',    # eigenTunes
                    'first_name': user_field(user, 'first_name') or '',
                    'last_name': user_field(user, 'last_name') or ''}
         kwargs.update({

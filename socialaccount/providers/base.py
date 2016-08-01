@@ -89,7 +89,8 @@ class Provider(object):
         self.cleanup_email_addresses(common_fields.get('email'),
                                      email_addresses)
         sociallogin = SocialLogin(account=socialaccount,
-                                  email_addresses=email_addresses)
+                                  email_addresses=email_addresses,
+                                  nickname=common_fields.get('nickname'))    # eigenTunes
         user = sociallogin.user = adapter.new_user(request, sociallogin)
         user.set_unusable_password()
         adapter.populate_user(request, sociallogin, common_fields)

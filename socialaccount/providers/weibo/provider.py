@@ -27,7 +27,9 @@ class WeiboProvider(OAuth2Provider):
         return data['idstr']
 
     def extract_common_fields(self, data):
+        # eigenTunes
         return dict(username=data.get('screen_name'),
+                    nickname=data.get('screen_name'),
                     name=data.get('name'))
 
 
