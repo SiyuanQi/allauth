@@ -15,8 +15,11 @@ class OAuth2Provider(Provider):
         url = reverse(self.id + "_login")
         if kwargs:
             url = url + '?' + urlencode(kwargs)
+            
         # eigenTunes
-        ret_url = "javascript:window.open('" + url + "', 'yourWindowName', 'width=800,height=600');"
+        ret_url = url
+        # ret_url = "javascript:window.open('" + url + "', 'yourWindowName', 'width=800,height=600');"
+
         return ret_url
 
     def get_auth_params(self, request, action):
