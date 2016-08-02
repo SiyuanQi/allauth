@@ -174,7 +174,8 @@ def complete_social_signup(request, sociallogin):
                            sociallogin.user,
                            app_settings.EMAIL_VERIFICATION,
                            sociallogin.get_redirect_url(request),
-                           signal_kwargs={'sociallogin': sociallogin})
+                           signal_kwargs={'sociallogin': sociallogin},
+                           nickname=sociallogin.nickname)    # eigenTunes
 
 
 # TODO: Factor out callable importing functionality
