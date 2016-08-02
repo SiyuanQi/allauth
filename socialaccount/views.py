@@ -51,6 +51,7 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
 
     def form_valid(self, form):
         form.save(self.request)
+        self.sociallogin.nickname = form.cleaned_data['nickname']    # eigenTunes
         return helpers.complete_social_signup(self.request,
                                               self.sociallogin)
 
