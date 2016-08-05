@@ -47,6 +47,7 @@ class WeixinOAuth2ClientMixin(object):
         callback_url = build_absolute_uri(
             request, callback_url,
             protocol=protocol)
+        callback_url = 'http://www.eigentunes.cn/weixin/login/callback/'
         provider = self.adapter.get_provider()
         scope = provider.get_scope(request)
         client = WeixinOAuth2Client(
