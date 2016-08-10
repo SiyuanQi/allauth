@@ -27,7 +27,9 @@ class WeixinProvider(OAuth2Provider):
         return ['snsapi_login']
 
     def extract_common_fields(self, data):
+        # eigenTunes
         return dict(username=data.get('nickname'),
+                    nickname=data.get('nickname'),
                     name=data.get('nickname'))
 
 
