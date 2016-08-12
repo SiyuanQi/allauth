@@ -181,8 +181,16 @@ def complete_signup(request, user, email_verification, success_url,
         profile = Profile.objects.create(user=user, nickname=nickname)
     else:
         profile = Profile.objects.create(user=user)
-    # if not os.path.exists(os.path.join(settings.MEDIA_ROOT, 'users', user.username)):
-    #     os.makedirs(os.path.join(settings.MEDIA_ROOT, 'users', user.username))
+
+    # eigenTunes
+    # Create the user folder (for local testing)
+    try:
+        os.makedirs(os.path.join(settings.MEDIA_ROOT, 'users', user.username))
+    except OSError:
+        # Folder exists
+        pass
+    except:
+        pass
 
     if signal_kwargs is None:
         signal_kwargs = {}
