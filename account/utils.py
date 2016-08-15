@@ -185,7 +185,8 @@ def complete_signup(request, user, email_verification, success_url,
     # eigenTunes
     # Create the user folder (for local testing)
     try:
-        os.makedirs(os.path.join(settings.MEDIA_ROOT, 'users', user.username))
+        if settings.ENVIRONMENT == 'local':
+            os.makedirs(os.path.join(settings.MEDIA_ROOT, 'users', user.username))
     except OSError:
         # Folder exists
         pass
