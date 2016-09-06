@@ -88,7 +88,7 @@ class LoginForm(forms.Form):
     }
 
     # eigenTunes
-    password = forms.CharField(label='密码', widget=forms.PasswordInput,
+    password = forms.CharField(label='密码', widget=forms.PasswordInput(attrs={'style': 'color:#2E2E2E;'}),
      error_messages = {'required': error_messages['password_required']})
     remember = forms.BooleanField(label="记住我的登录",
                                   required=False)
@@ -134,7 +134,8 @@ class LoginForm(forms.Form):
             # eigenTunes
             login_widget = forms.TextInput(attrs={'placeholder':
                                                   '用户名/邮箱地址',
-                                                  'autofocus': 'autofocus'})
+                                                  'autofocus': 'autofocus',
+                                                  'style': 'color:#2E2E2E;'})
             login_field = forms.CharField(label="登录",
                                           widget=login_widget,
                                           error_messages={'required':self.error_messages['username_email_required']})
@@ -256,14 +257,17 @@ class BaseSignupForm(_base_signup_form_class()):
                                min_length=app_settings.USERNAME_MIN_LENGTH,
                                widget=forms.TextInput(
                                    attrs={'placeholder': '用户名',
-                                          'autofocus': 'autofocus'}))
+                                          'autofocus': 'autofocus',
+                                          'style': 'color:#2E2E2E;'}))
     nickname = forms.CharField(label='昵称（可修改）',
                                error_messages={'required': '请填写昵称'},
                                widget=forms.TextInput(
-                                   attrs={'placeholder': '昵称'}))
+                                   attrs={'placeholder': '昵称',
+                                          'style': 'color:#2E2E2E;'}))
     email = forms.EmailField(error_messages={'required': '请填写邮箱地址'},
                              widget=forms.TextInput(attrs={'type': 'email',
-                                                           'placeholder': '邮箱地址'}))
+                                                           'placeholder': '邮箱地址',
+                                                           'style': 'color:#2E2E2E;'}))
 
     def __init__(self, *args, **kwargs):
         email_required = kwargs.pop('email_required',
@@ -377,8 +381,10 @@ class SignupForm(BaseSignupForm):
     # password2 = PasswordField(label=_("Password (again)"))
 
     # eigenTunes
-    password1 = forms.CharField(label='密码', widget=forms.PasswordInput, error_messages = {'required': '请填写密码'})
-    password2 = forms.CharField(label='重复密码', widget=forms.PasswordInput, error_messages = {'required': '请填写重复密码'})
+    password1 = forms.CharField(label='密码', widget=forms.PasswordInput(attrs={'style': 'color:#2E2E2E;'}),
+                                error_messages = {'required': '请填写密码'})
+    password2 = forms.CharField(label='重复密码', widget=forms.PasswordInput(attrs={'style': 'color:#2E2E2E;'}),
+                                error_messages = {'required': '请填写重复密码'})
     confirmation_key = forms.CharField(max_length=40,
                                        required=False,
                                        widget=forms.HiddenInput())
