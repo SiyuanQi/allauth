@@ -24,6 +24,8 @@ from .app_settings import AuthenticationMethod
 from . import app_settings
 from .adapter import get_adapter
 
+from djng.forms import NgModelFormMixin, NgForm
+
 try:
     from importlib import import_module
 except ImportError:
@@ -65,7 +67,7 @@ class SetPasswordField(PasswordField):
         return value
 
 
-class LoginForm(forms.Form):
+class LoginForm(NgModelFormMixin, NgForm):
     # eigenTunes
     error_messages = {
         'account_inactive':
