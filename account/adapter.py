@@ -36,6 +36,9 @@ from ..utils import (build_absolute_uri, get_current_site,
 
 from . import app_settings
 
+# eigenTunes
+import threading
+
 
 class DefaultAccountAdapter(object):
 
@@ -155,7 +158,13 @@ class DefaultAccountAdapter(object):
 
     def send_mail(self, template_prefix, email, context):
         msg = self.render_mail(template_prefix, email, context)
-        msg.send()
+        # msg.send()
+
+        # eigenTunes
+        mailing_thread = threading.Thread(
+            target=msg.send
+        )
+        mailing_thread.start()
 
     def get_login_redirect_url(self, request):
         """
