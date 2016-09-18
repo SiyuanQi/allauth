@@ -378,7 +378,7 @@ class BaseSignupForm(_base_signup_form_class()):
             custom_form.save(user)
 
 
-class SignupForm(BaseSignupForm):
+class SignupForm(BaseSignupForm,NgModelFormMixin, NgForm):
     # password1 = PasswordField(label=_("Password"))
     # password2 = PasswordField(label=_("Password (again)"))
 
